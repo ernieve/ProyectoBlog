@@ -1,0 +1,33 @@
+{% for articulo in articles %}
+<article class='articulo-item'>
+   {% comment %} Aqui compruebo si existe una imagen en la variable {% endcomment %}
+   {% if articulo.image != 'null' and articulo.image.url|length >= 1 %}
+      <div class='imagen'>
+         <img src="{{articulo.image.url}}"/>
+      </div>
+   {% endif %}
+   <div class='data'>
+      <h2>
+         <a href="{% url 'articulo' articulo.id %}"> 
+            {{articulo.title}} 
+         </a>
+      </h2>
+      <p>
+          <!--Aqui realizo otro bucle ya que categories es manytomany y la propiedad categories guardar varios valores-->
+          {% for categoria in articulo.categories.all %}
+              <p> {{categoria}} </p>
+              {% if forloop.counter < articulo.categories.all|length %}
+                  {{'-'}}
+              {% endif %}
+          {% endfor %}
+      </p>
+      <span class='fecha'>{{articulo.user.first_name}} {{ articulo.user.last_name }} | {{articulo.created_at}}</span>
+
+      <p>
+         {{articulo.content|safe}} 
+         {% comment %} <a href="{% url 'borrar_articulo' id=articulo.id %}" class="btn btn-borrar">Eliminar</a> {% endcomment %}
+      </p>
+   </div>
+   <div class='clearfix'></div>
+</article>
+{% endfor %}

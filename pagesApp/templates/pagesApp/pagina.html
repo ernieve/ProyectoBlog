@@ -1,0 +1,13 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}{{pagina.title}}{% endblock title %}
+
+{% block content %}
+    <h1 class="titulo">{{pagina.title}}</h1>
+    <span class='fecha'>{{pagina.created_at}}</span>
+    <p class="contenido">
+        <!--Uso el pipe safe para que tome el codigo como html y no como texto plano, es decir, usara las etiquetas-->
+        {{pagina.content|safe}}
+    </p>
+        
+{% endblock content %}

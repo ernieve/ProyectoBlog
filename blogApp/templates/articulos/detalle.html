@@ -1,0 +1,21 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}{{articulo.title}}{% endblock title %}
+
+{% block content %}
+
+   {% comment %} Aqui compruebo si existe una imagen en la variable {% endcomment %}
+   {% if articulo.image != 'null' and articulo.image.url|length >= 1 %}
+      <div class='imagen'>
+         <img src="{{articulo.image.url}}"/>
+      </div>
+   {% endif %}
+   
+    <h1 class="titulo">{{articulo.title}}</h1>
+    <span class='fecha'>{{articulo.created_at}}</span>
+    <p class="contenido">
+        <!--Uso el pipe safe para que tome el codigo como html y no como texto plano, es decir, usara las etiquetas-->
+        {{articulo.content|safe}}
+    </p>
+        
+{% endblock content %}

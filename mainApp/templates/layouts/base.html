@@ -1,0 +1,69 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <title>{% block title %}{% endblock title %}</title>
+</head>
+<body>
+    <!--CABECERA-->
+    <header>
+        <!--El id sirve para seleccionar algo que solo va a estar una vez en la pagina-->
+        <div id="logotipo">
+            <!--Logo Django-->
+            <img src="{% static 'images/logo.png' %}" alt="">
+            <h1>Proyecto Web - Blog</h1>
+        </div>  
+    </header>
+    <!--MENU NAVEGACION-->
+    <nav>
+        <ul>
+            <li>
+                <a href="{% url 'inicio' %}">Inicio</a>
+            </li>
+            <li>
+                <a href="{% url 'articulos' %}">Categorias</a>
+                <ul>
+                    {% for categoria in categorias  %}
+                    <li>
+                        <a href="{% url 'categoria' categoria.0 %}">{{categoria.1}}<a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </li>
+            <!--Aqui cargo las paginas que creo desde mi pase de datos para mostrar en el menu, recorro el array e indico la posicion que deseo mostrar-->
+            {% for pagina in paginas %}
+                <li>
+                    <a href="{% url 'pagina' pagina.2 %}">{{ pagina.1 }}</a>
+                </li>
+            {% endfor %}
+            <li>
+                <a href="http://127.0.0.1:8000/admin/">Admin</a>
+            </li>
+        </ul>
+    </nav>
+    <!--BARRA EFECTO 3D-->
+    <div class="barra">
+        <!-- Este va a ser la parte del html que compone el efecto 3d del menu -->
+        <span class="esquina-izq"></span>
+        <span class="relleno"></span>
+        <span class="esquina-der"></span>
+    </div>
+
+    <!--CONTENIDO CENTRAL DE LA PAGINA-->
+    <div id="content">
+        <!--CONTENEDOR DEL BLOCK QUE VIENE DE LOS TEMPLATES-->
+        <div class="box">
+            {% block content %}
+            {% endblock content %}
+        </div>
+    </div> 
+    <footer>
+        <!--Con el now seguido de una formato puedo incluir las fechas ahi estoy indicando en el footer dia, mes, año, hora, minutos y segundos actuales-->
+        Ernie &copysr; {% now "d-m-Y H:i:s" %}
+    </footer> 
+</body>
+</html>

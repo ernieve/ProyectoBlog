@@ -1,0 +1,9 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}{{title}}{% endblock title %}
+
+{% block content %}
+   <h1 class="titulo">Listado Articulos</h1>
+   {% include 'articulos/articulo.html' %}
+
+{% endblock content %}
