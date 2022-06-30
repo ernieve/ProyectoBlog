@@ -24,31 +24,35 @@
             <li>
                 <a href="{% url 'inicio' %}">Inicio</a>
             </li>
-            <li>
-                <a href="{% url 'articulos' %}">Categorias</a>
-                <ul>
-                    {% for categoria in categorias  %}
-                    <li>
-                        <a href="{% url 'categoria' categoria.0 %}">{{categoria.1}}<a>
-                    </li>
-                    {% endfor %}
-                </ul>
-            </li>
-            <!--Aqui cargo las paginas que creo desde mi pase de datos para mostrar en el menu, recorro el array e indico la posicion que deseo mostrar-->
-            {% for pagina in paginas %}
+
+            {% if user.email %}
                 <li>
-                    <a href="{% url 'pagina' pagina.2 %}">{{ pagina.1 }}</a>
+                    <a href="{% url 'articulos' %}">Categorias</a>
+                    <ul>
+                        {% for categoria in categorias  %}
+                        <li>
+                            <a href="{% url 'categoria' categoria.0 %}">{{categoria.1}}<a>
+                        </li>
+                        {% endfor %}
+                    </ul>
                 </li>
-            {% endfor %}
-            <li>
-                <a href="{% url 'register' %}">Registro</a>
-            </li>
-            <li>
-                <a href="{% url 'inicio_sesion' %}">Iniciar Sesion</a>
-            </li>
-            <li>
-                <a href="http://127.0.0.1:8000/admin/">Admin</a>
-            </li>
+                <li>
+                    <a href="http://127.0.0.1:8000/admin/">Admin</a>
+                </li>
+                <!--Aqui cargo las paginas que creo desde mi pase de datos para mostrar en el menu, recorro el array e indico la posicion que deseo mostrar-->
+                {% for pagina in paginas %}
+                    <li>
+                        <a href="{% url 'pagina' pagina.2 %}">{{ pagina.1 }}</a>
+                    </li>
+                {% endfor %}
+            {% else %}
+                <li>
+                    <a href="{% url 'register' %}">Registro</a>
+                </li>
+                <li>
+                    <a href="{% url 'inicio_sesion' %}">Iniciar Sesion</a>
+                </li>
+            {% endif%}
         </ul>
     </nav>
     <!--BARRA EFECTO 3D-->
