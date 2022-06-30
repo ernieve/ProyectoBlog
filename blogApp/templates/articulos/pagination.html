@@ -1,0 +1,15 @@
+<div class='pagination'>
+    {% comment %} Comprobar si tengo articulos previos para que muestre o no el boton de siguiente o previo {% endcomment %}
+    {% if articles.has_previous %}
+        <a href="?page=1">&laquo; Primero</a>
+        <a href="?page={{articles.previous_page_number}}">Anterior</a>
+    {% endif %}
+    <span class="actual">
+        Pagina {{articles.number}} de {{articles.paginator.num_pages}}
+    </span> 
+
+    {% if articles.has_next %}
+        <a href="?page={{articles.next_page_number}}">siguiente</a>
+        <a href="?page={{articles.paginator.num_pages}}">Ultimo &raquo;</a>
+    {% endif %}
+</div>

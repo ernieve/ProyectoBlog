@@ -214,17 +214,16 @@ nav ul li a:hover{/*pseudo clase para dar estilos cuando pasa el mouse encima de
     display: block;
     padding: 5px;
     margin-left: 0px;
+    
 }
 
 .box form input[type="text"], 
-.box form textarea
+.box form input[type="email"],
+.box form input[type="password"],
+.box form textarea,
+.box form select
 {
     width: 100%;
-    margin-bottom: 10px;
-}
-
-.box form select{
-    width: 100px;
     margin-bottom: 10px;
 }
 
@@ -335,3 +334,19 @@ footer{
     margin: 0 auto;
 }
 
+.messages,
+.alert-success{
+    padding: 20px;
+    background: #1f7e58;
+    color: white;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.messages-warning{
+    padding: 20px;
+    background: red;
+    color: white;
+    text-align: center;
+    margin-bottom: 10px;
+}

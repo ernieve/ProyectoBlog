@@ -5,6 +5,10 @@ from pagesApp.models import Pagina
 #Mostrar campos ocultos del modelo 
 class PaginaAdmin(admin.ModelAdmin):
     readonly_fields=('created_at','updated_at')
+    search_fields = ('title','content')
+    list_filter = ('visible',)
+    list_display = ('title','visible','created_at')
+    ordering = ('created_at',)
     
 #Agregar mi modelo a la pagina admin
 admin.site.register(Pagina,PaginaAdmin)
