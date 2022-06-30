@@ -1,13 +1,14 @@
 from django.db import reset_queries
 from django.shortcuts import render, get_object_or_404
 from blogApp.models import *
+from django.contrib.auth.decorators import login_required
 
 #Importar la paginacion
 from django.core.paginator import Paginator
 
 # Create your views here.
+@login_required(login_url='inicio_sesion')
 def articulos(request):
-    
     #Sacar articulos
     articulos = Article.objects.all()#.order_by('-id') #El ordenamiento de ultimo lo estoy haciendo en la clase meta del modelo
     
@@ -22,7 +23,8 @@ def articulos(request):
     
     return render(request,'articulos/listas.html',{'title':'Articulos','articles':page_articles})
     #return render(request,'articulos/listas.html',{'title':'Articulos','articles':articulos})
-
+    
+@login_required(login_url='inicio_sesion')
 def categoria(request,categoria_id):
     #categoria = Category.objects.get(id=categoria_id)
     #Arrojando error 404 sino consigue el id
@@ -32,6 +34,7 @@ def categoria(request,categoria_id):
     #Debo cuidar de enviar el mismo nombre de clave para los articulos ya que estoy reusando la template lista
     return render(request,'categorias/categoria.html',{'categoria':categoria,'articles':articulos})
 
+@login_required(login_url='inicio_sesion')
 def article(request, article_id):
     article = get_object_or_404(Article, id=article_id)
     return render(request,'articulos/detalle.html',{'articulo':article})
