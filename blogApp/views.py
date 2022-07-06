@@ -52,7 +52,9 @@ def editar_articulo(request,id):
         formulario = FormArticulo(request.POST)
         if formulario.is_valid():
             info_articulo = formulario.cleaned_data
-            articulo = Article(title = info_articulo["title"],content = info_articulo["content"],user_id = request.user.id)
+            articulo.title = info_articulo["title"]
+            articulo.content = info_articulo["content"]
+            articulo.user_id = request.user.id
             articulo.save()
             return redirect('articulos')
     #get
