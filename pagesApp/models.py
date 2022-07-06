@@ -1,6 +1,4 @@
-from tabnanny import verbose
 from django.db import models
-#Importar el editor de texto enriquecido, luego de haberlo instalado (pip install django-ckeditor)
 from ckeditor.fields import RichTextField
 
 # Create your models here.

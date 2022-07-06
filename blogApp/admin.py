@@ -10,8 +10,8 @@ class CategoryAdmin(admin.ModelAdmin):
 class ArticleAdmin(admin.ModelAdmin):
     readonly_fields=('user','created_at','updated_at',)
     search_fields=('title','content','user__username','categories__name')
-    list_display = ('title','user','created_at','public')
-    list_filter = ('public','user__username','categories__name')
+    list_display = ('title','user','created_at')
+    list_filter = ('user__username','categories__name')
     
     #Metodo para manipular el comportamiento cuando yo guardo un articulo
     def save_model(self, request, obj, form, change):

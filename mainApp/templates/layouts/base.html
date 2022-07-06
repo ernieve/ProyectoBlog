@@ -27,19 +27,14 @@
 
             {% if user.email %}
                 <li>
-                    <a href="{% url 'articulos' %}">Categorias</a>
-                    <ul>
-                        {% for categoria in categorias  %}
-                        <li>
-                            <a href="{% url 'categoria' categoria.0 %}">{{categoria.1}}<a>
-                        </li>
-                        {% endfor %}
-                    </ul>
+                    <a href="{% url 'articulos' %}">Articulos</a>
                 </li>
                 <li>
                     <a href="http://127.0.0.1:8000/admin/">Admin</a>
                 </li>
-                <!--Aqui cargo las paginas que creo desde mi pase de datos para mostrar en el menu, recorro el array e indico la posicion que deseo mostrar-->
+                <li>
+                    <a href="{% url 'crear_articulo' %}">Crear Art</a>
+                </li>
                 {% for pagina in paginas %}
                     <li>
                         <a href="{% url 'pagina' pagina.2 %}">{{ pagina.1 }}</a>

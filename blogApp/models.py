@@ -24,7 +24,6 @@ class Article(models.Model):
     title=models.CharField(max_length=150,verbose_name='Titulo')
     content=RichTextField(verbose_name='Contenido')
     image = models.ImageField(default='null',verbose_name='Imagen',upload_to='articulos')
-    public=models.BooleanField(verbose_name='¿Publicado?')
     created_at=models.DateTimeField(auto_now_add=True,verbose_name='Creado el')
     updated_at=models.DateTimeField(auto_now=True,verbose_name='Editado el')
     #Aqui creo relacion, osea FK, con el modelo de usuarios. El cascade borrara todos los articulos si es usuario es eliminado, es decir, no habra ER

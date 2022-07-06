@@ -1,9 +1,9 @@
 from django.db import reset_queries
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from blogApp.models import *
 from django.contrib.auth.decorators import login_required
+from .forms import *
 
-#Importar la paginacion
 from django.core.paginator import Paginator
 
 # Create your views here.
@@ -11,10 +11,6 @@ from django.core.paginator import Paginator
 def articulos(request):
     #Sacar articulos
     articulos = Article.objects.all()#.order_by('-id') #El ordenamiento de ultimo lo estoy haciendo en la clase meta del modelo
-    
-    #Usando la libreria de paginacion
-    #Paginar articulos
-    #El primer campo que le paso es la variable de articulos y el segundo es la cantidad que quiero se muestre
     paginator = Paginator(articulos,3)
     
     # Recorger numero paginas
@@ -22,16 +18,60 @@ def articulos(request):
     page_articles=paginator.get_page(page)
     
     return render(request,'articulos/listas.html',{'title':'Articulos','articles':page_articles})
-    #return render(request,'articulos/listas.html',{'title':'Articulos','articles':articulos})
+
+@login_required(login_url='inicio_sesion')
+def crear_articulos(request):
+    #POST 
+    if request.method=="POST":
+        
+        formulario = FormArticulo(request.POST)
+        
+        if formulario.is_valid():
+            
+            info_articulo = formulario.cleaned_data
+            
+            articulo = Article(title = info_articulo["title"],
+                            content = info_articulo["content"],
+                            user_id = request.user.id)
+            articulo.save()
+                        
+            return redirect("articulos")
+        
+        else:
+            redirect("inicio")
+    else:
+        formulario_vacio = FormArticulo()
+        return render(request,"articulos/form_articulo.html",{'form':formulario_vacio})
+
+def editar_articulo(request,id):
     
+    articulo = Article.objects.get(id=id)
+    
+    if request.method == "POST":
+        
+        formulario = FormArticulo(request.POST)
+        if formulario.is_valid():
+            info_articulo = formulario.cleaned_data
+            articulo = Article(title = info_articulo["title"],content = info_articulo["content"],user_id = request.user.id)
+            articulo.save()
+            return redirect('articulos')
+    #get
+    formulario_vacio = FormArticulo(initial={"title":articulo.title,
+                                "content":articulo.content})
+    return render(request,"articulos/form_articulo.html",{'form':formulario_vacio})
+
+
+
+@login_required(login_url='inicio_sesion')
+def delete_articulo(request,id):
+    borrar_articulo = Article.objects.get(pk=id)
+    borrar_articulo.delete()
+    return redirect("articulos")
+
 @login_required(login_url='inicio_sesion')
 def categoria(request,categoria_id):
-    #categoria = Category.objects.get(id=categoria_id)
-    #Arrojando error 404 sino consigue el id
     categoria = get_object_or_404(Category, id=categoria_id)
-    #Aqui estoy haciendo una consulta buscando los articulos que corresponden a la categoria donde abro la ventana
     articulos = Article.objects.filter(categories=categoria_id)
-    #Debo cuidar de enviar el mismo nombre de clave para los articulos ya que estoy reusando la template lista
     return render(request,'categorias/categoria.html',{'categoria':categoria,'articles':articulos})
 
 @login_required(login_url='inicio_sesion')

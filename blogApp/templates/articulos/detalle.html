@@ -17,5 +17,9 @@
         <!--Uso el pipe safe para que tome el codigo como html y no como texto plano, es decir, usara las etiquetas-->
         {{articulo.content|safe}}
     </p>
+    <p>
+      <a href="{% url 'delete_articulo' id=articulo.id %}" class="btn btn-borrar">Eliminar</a>
+      <a href="{% url 'editar_articulo' id=articulo.id %}" class="btn2 btn-modificar">Editar</a>
+   </p>
         
 {% endblock content %}

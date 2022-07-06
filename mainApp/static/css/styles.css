@@ -310,10 +310,21 @@ nav ul li a:hover{/*pseudo clase para dar estilos cuando pasa el mouse encima de
     line-height: 25px;
 }
 
-/* Boton de borrado */
+/* Botones */
 .btn{
     padding: 10px;
     background: rgb(230, 52, 52);
+    color: white;
+    border: 1px solid black;
+    display: block;
+    width: 100px;
+    margin-top: 15px;
+    text-align: center;
+}
+
+.btn2{
+    padding: 10px;
+    background: rgb(52, 230, 82);
     color: white;
     border: 1px solid black;
     display: block;
